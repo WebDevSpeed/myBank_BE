@@ -11,19 +11,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u=jgi@wu^_m%qst%%4%vvn(**m8e7031h)wjlhf501+_r(ka#w'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'User'
 ]
 
 MIDDLEWARE = [
@@ -75,10 +80,15 @@ WSGI_APPLICATION = 'myBank_BE.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['NAME'],  # Your database name
+        'USER': os.environ['USER'],  # Your MySQL username
+        'PASSWORD': os.environ['PASSWORD'],  # Your MySQL password
+        'HOST': os.environ['HOST'],  # Host where MySQL is running (usually 'localhost')
+        'PORT': os.environ['PORT'],  # MySQL port (usually 3306)
     }
 }
+
 
 
 # Password validation
